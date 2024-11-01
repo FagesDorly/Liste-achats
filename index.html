@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <title>Ma première page Vue</title>
+</head>
+
+
+
+
+<body>
+
+    <div id="app">
+        <form v-on:submit.prevent="addItem">
+
+            <p>De quoi as-tu besoin ?
+                <input type="text" required placeholder="nom du produit..." v-model="itemName">
+            </p>
+
+            <p>Combien ?
+                <input type="text" placeholder="nombre de produits..." v-model="itemNumber">
+            </p>
+
+            <button type="submit">Ajouter</button>
+        </form>
+
+        <h3>Liste des achats:</h3>
+        <ul>
+            <li v-for="item in shoppingList">{{ item.name }}, {{ item.number }}</li>
+        </ul>
+    </div>
+
+    <script>
+        const app = Vue.createApp({
+            data() {
+                return {
+                    itemName: null,
+                    itemNumber: null,
+                    shoppingList: [
+                        {name: 'Tomates', number: 5}
+                    ]
+                }
+            }, methods: {
+                addItem() {
+                    let item = { name: this.itemName, number: this.itemNumber }
+                    this.shoppingList.push(item)
+                    this.itemName = null
+                    this.itemNumber = null
+                }
+            }
+        })
+        app.mount("#app")
+    </script>
+
+</body>
+</html>
